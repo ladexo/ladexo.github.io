@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ololade Cybersecurity — Securing the Digital Frontier</title>
+  <meta name="description" content="Cybersecurity solutions, tools, and insights by Ololade. Protecting digital assets with cutting-edge expertise.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* ========================================
+   OloladeSec — Dark-Tech Cybersecurity Theme
+   ======================================== */
+
+/* Variables */
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: rgba(17, 24, 39, 0.8);
+  --bg-card-hover: rgba(17, 24, 39, 0.95);
+  --accent-cyan: #00e5ff;
+  --accent-green: #00ff88;
+  --accent-purple: #a855f7;
+  --accent-orange: #f97316;
+  --accent-red: #ef4444;
+  --accent-yellow: #facc15;
+  --text-primary: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-subtle: rgba(148, 163, 184, 0.1);
+  --border-glow: rgba(0, 229, 255, 0.2);
+  --glass: rgba(15, 23, 42, 0.75);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Reset */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-cyan) var(--bg-primary);
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a { color: var(--accent-cyan); text-decoration: none; transition: var(--transition); }
+a:hover { color: var(--accent-green); }
+
+/* Background Effects */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,229,255,0.008) 2px,
+    rgba(0,229,255,0.008) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(10, 14, 23, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.logo-icon { font-size: 1.5rem; }
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-cyan);
+  transition: var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent-cyan);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-green);
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(0, 255, 136, 0); }
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-cyan), #00b4d8);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.4);
+  transform: translateY(-2px);
+  color: var(--bg-primary);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-glow);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 229, 255, 0.05);
+  color: var(--accent-cyan);
+}
+
+/* Terminal line */
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background: var(--accent-cyan);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ========== STATS BAR ========== */
+.stats-bar {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 3rem 1.5rem;
+}
+
+.stats-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-header .label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========== FEATURE CARDS ========== */
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: var(--transition);
+}
+
+.feature-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.08);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.feature-icon.cyan { background: rgba(0, 229, 255, 0.1); }
+.feature-icon.green { background: rgba(0, 255, 136, 0.1); }
+.feature-icon.purple { background: rgba(168, 85, 247, 0.1); }
+.feature-icon.orange { background: rgba(249, 115, 22, 0.1); }
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ========== CTA SECTION ========== */
+.cta-section {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 5rem 1.5rem;
+  background: linear-gradient(180deg, transparent, rgba(0, 229, 255, 0.03), transparent);
+}
+
+.cta-section h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border-subtle);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover { color: var(--accent-cyan); }
+
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* ========== ABOUT HERO ========== */
+.about-hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 8rem 1.5rem 3rem;
+}
+
+.about-hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin: 1.5rem 0 1rem;
+}
+
+.about-hero p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========== ABOUT CONTENT ========== */
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-block h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about-block p {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.about-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-block ul li {
+  color: var(--text-muted);
+  padding: 0.4rem 0 0.4rem 1.5rem;
+  position: relative;
+  line-height: 1.7;
+}
+
+.about-block ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+/* Skills Tags */
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tag {
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  color: var(--accent-cyan);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  transition: var(--transition);
+}
+
+.tag:hover {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--accent-cyan);
+}
+
+/* ========== TOOLS PAGE ========== */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.tool-preview-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  position: relative;
+  transition: var(--transition);
+}
+
+.tool-preview-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-3px);
+}
+
+.tool-preview-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+
+.tool-preview-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.tool-status {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  margin-bottom: 0.8rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tool-status.live {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.tool-status.coming {
+  background: rgba(250, 204, 21, 0.08);
+  color: var(--accent-yellow);
+  border: 1px solid rgba(250, 204, 21, 0.2);
+}
+
+/* Tool Card */
+.tool-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tool-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+}
+
+.tool-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.tool-desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 2rem;
+}
+
+/* Password Input */
+.password-input-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.password-input-wrap input {
+  width: 100%;
+  padding: 1rem 3.5rem 1rem 1.2rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.password-input-wrap input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0.2rem;
+  transition: var(--transition);
+}
+
+.toggle-visibility:hover { color: var(--accent-cyan); }
+
+/* Strength Meter */
+.strength-meter {
+  margin-bottom: 1.5rem;
+}
+
+.meter-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.meter-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+.meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.strength-text { font-weight: 600; }
+.crack-time { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.8rem; }
+
+/* Criteria List */
+.criteria-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.2rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.criteria-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.criteria-list li.met { color: var(--accent-green); }
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.criteria-list li.met .check-icon {
+  background: rgba(0, 255, 136, 0.15);
+  color: var(--accent-green);
+}
+
+/* Generator Section */
+.generator-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2rem;
+  margin-top: 0.5rem;
+}
+
+.generator-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.length-slider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.length-slider label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  min-width: 55px;
+}
+
+.length-slider input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.length-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.length-slider input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.length-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-cyan);
+  min-width: 28px;
+  text-align: right;
+}
+
+.gen-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.gen-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.gen-options input[type="checkbox"] {
+  accent-color: var(--accent-cyan);
+  width: 16px;
+  height: 16px;
+}
+
+.gen-output {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.gen-output input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.btn-generate,
+.btn-copy {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--border-glow);
+  background: rgba(0, 229, 255, 0.08);
+  color: var(--accent-cyan);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.btn-generate:hover,
+.btn-copy:hover {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--accent-cyan);
+}
+
+/* ========== FADE IN ========== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 23, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: flex; }
+
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .features-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .criteria-list { grid-template-columns: 1fr; }
+  .gen-output { flex-direction: column; }
+
+  .tool-card { padding: 1.5rem; }
+
+  .hero h1 { font-size: 2rem; }
+  .hero { padding-top: 5rem; min-height: auto; padding-bottom: 3rem; }
+  .terminal-line { font-size: 0.75rem; padding: 0.6rem 1rem; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stat-number { font-size: 1.8rem; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .about-hero { padding-top: 6rem; }
+}
+
+</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🛡️</span>
+        <span>OLOLADE<span style="color: var(--accent-green);">SEC</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        Systems Active — All Shields Operational
+      </div>
+      <h1>Defend Your <span class="gradient-text">Digital World</span> with Precision</h1>
+      <p>Professional cybersecurity insights, interactive security tools, and expert analysis — built to help you stay ahead of evolving threats.</p>
+      <div class="hero-buttons">
+        <a href="tools.html" class="btn btn-primary">⚡ Explore Tools</a>
+        <a href="about.html" class="btn btn-outline">Learn More →</a>
+      </div>
+      <div class="terminal-line">
+        <span style="color: var(--accent-cyan);">ololade@sec</span><span style="color: var(--text-muted);">:</span><span style="color: var(--accent-purple);">~</span><span style="color: var(--text-muted);">$</span> <span class="typing-text"></span><span class="cursor"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <span class="stat-number" data-target="2800" data-suffix="+">0</span>
+        <span class="stat-label">Threats Analyzed</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number" data-target="99" data-suffix=".9%">0</span>
+        <span class="stat-label">Uptime Secured</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number" data-target="150" data-suffix="+">0</span>
+        <span class="stat-label">Systems Protected</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number" data-target="24" data-suffix="/7">0</span>
+        <span class="stat-label">Monitoring Active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services / Features -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="label">// Core Capabilities</span>
+        <h2>Security Services & Expertise</h2>
+        <p>Comprehensive cybersecurity solutions designed to protect, detect, and respond to modern threats.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon cyan">🔍</div>
+          <h3>Threat Intelligence</h3>
+          <p>Continuous monitoring and analysis of emerging cyber threats, zero-day vulnerabilities, and attack vectors targeting modern infrastructure.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon green">🔐</div>
+          <h3>Penetration Testing</h3>
+          <p>Simulated attack scenarios to identify weaknesses in networks, applications, and systems before malicious actors can exploit them.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon purple">🛡️</div>
+          <h3>Incident Response</h3>
+          <p>Rapid containment and forensic analysis when breaches occur. Structured playbooks ensure minimal damage and fast recovery.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon orange">📊</div>
+          <h3>Security Auditing</h3>
+          <p>In-depth compliance audits and risk assessments aligned with industry frameworks including NIST, ISO 27001, and SOC 2.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon cyan">🌐</div>
+          <h3>Network Defense</h3>
+          <p>Architecture review, firewall configuration, intrusion detection systems, and real-time traffic analysis for robust perimeter security.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon green">🔑</div>
+          <h3>Identity & Access</h3>
+          <p>Multi-factor authentication implementation, zero-trust architecture design, and privileged access management strategies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container fade-in">
+      <h2>Ready to Strengthen Your Defenses?</h2>
+      <p>Explore interactive security tools or learn more about the expertise behind OloladeSec.</p>
+      <div class="hero-buttons">
+        <a href="tools.html" class="btn btn-primary">🔧 Try Security Tools</a>
+        <a href="about.html" class="btn btn-outline">About Ololade →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">OLOLADE<span style="color: var(--accent-green);">SEC</span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="about.html">About</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 OloladeSec. Built with precision. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+/* ========================================
+   OloladeSec — Main JavaScript
+   ======================================== */
+
+// ===== Mobile Nav Toggle =====
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+}
+
+// ===== Navbar Scroll Effect =====
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// ===== Fade-In on Scroll =====
+const fadeEls = document.querySelectorAll('.fade-in');
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+fadeEls.forEach(el => fadeObserver.observe(el));
+
+// ===== Stat Counter Animation =====
+const statNumbers = document.querySelectorAll('.stat-number');
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      let current = 0;
+      const increment = Math.ceil(target / 60);
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = current.toLocaleString() + suffix;
+      }, 25);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+statNumbers.forEach(el => statObserver.observe(el));
+
+// ===== Terminal Typing Effect =====
+const typingEl = document.querySelector('.typing-text');
+if (typingEl) {
+  const commands = [
+    'nmap -sV --script vuln target.com',
+    'sudo tcpdump -i eth0 -w capture.pcap',
+    'hashcat -m 0 -a 0 hashes.txt wordlist.txt',
+    'nikto -h https://target.com -ssl',
+    'gobuster dir -u https://target.com -w common.txt',
+    'sqlmap -u "https://target.com/page?id=1" --dbs',
+    'hydra -l admin -P passwords.txt ssh://target.com',
+    'wireshark -k -i eth0 -f "port 443"'
+  ];
+  let cmdIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let pauseTimer = 0;
+
+  function typeLoop() {
+    const currentCmd = commands[cmdIndex];
+
+    if (!isDeleting) {
+      typingEl.textContent = currentCmd.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentCmd.length) {
+        isDeleting = true;
+        pauseTimer = 60;
+      }
+    } else {
+      if (pauseTimer > 0) {
+        pauseTimer--;
+      } else {
+        typingEl.textContent = currentCmd.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          cmdIndex = (cmdIndex + 1) % commands.length;
+        }
+      }
+    }
+
+    const speed = isDeleting ? (pauseTimer > 0 ? 30 : 20) : 50 + Math.random() * 40;
+    setTimeout(typeLoop, speed);
+  }
+
+  setTimeout(typeLoop, 1000);
+}
+
+// ===== Password Strength Checker =====
+const passwordInput = document.getElementById('passwordInput');
+const toggleBtn = document.querySelector('.toggle-visibility');
+
+if (passwordInput) {
+  // Toggle visibility
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      toggleBtn.textContent = type === 'password' ? '👁️' : '🔒';
+    });
+  }
+
+  // Common passwords list
+  const commonPasswords = new Set([
+    'password', '123456', '12345678', 'qwerty', 'abc123', 'monkey', 'master',
+    'dragon', '111111', 'baseball', 'iloveyou', 'trustno1', 'sunshine', 'ashley',
+    'football', 'shadow', '123123', '654321', 'superman', 'qazwsx', 'michael',
+    'password1', 'password123', 'admin', 'letmein', 'welcome', 'login', 'starwars',
+    '1234567', '12345', '1234567890', '000000', 'passw0rd', 'hello', 'charlie'
+  ]);
+
+  passwordInput.addEventListener('input', () => {
+    const pw = passwordInput.value;
+    const fill = document.querySelector('.meter-bar-fill');
+    const strengthText = document.querySelector('.strength-text');
+    const crackTime = document.querySelector('.crack-time');
+
+    // Criteria checks
+    const criteria = {
+      length: pw.length >= 12,
+      upper: /[A-Z]/.test(pw),
+      lower: /[a-z]/.test(pw),
+      number: /\d/.test(pw),
+      special: /[^A-Za-z0-9]/.test(pw),
+      nocommon: !commonPasswords.has(pw.toLowerCase())
+    };
+
+    // Update criteria UI
+    Object.keys(criteria).forEach(key => {
+      const el = document.getElementById('cr-' + key);
+      if (el) {
+        if (criteria[key]) {
+          el.classList.add('met');
+        } else {
+          el.classList.remove('met');
+        }
+      }
+    });
+
+    // Score calculation
+    if (pw.length === 0) {
+      fill.style.width = '0%';
+      fill.style.background = 'transparent';
+      strengthText.textContent = '—';
+      strengthText.style.color = 'var(--text-muted)';
+      crackTime.textContent = '';
+      return;
+    }
+
+    let score = 0;
+    Object.values(criteria).forEach(v => { if (v) score++; });
+
+    // Bonus for length
+    if (pw.length >= 16) score += 1;
+    if (pw.length >= 20) score += 1;
+
+    // Calculate crack time estimate
+    let charsetSize = 0;
+    if (/[a-z]/.test(pw)) charsetSize += 26;
+    if (/[A-Z]/.test(pw)) charsetSize += 26;
+    if (/\d/.test(pw)) charsetSize += 10;
+    if (/[^A-Za-z0-9]/.test(pw)) charsetSize += 33;
+    if (charsetSize === 0) charsetSize = 26;
+
+    const combinations = Math.pow(charsetSize, pw.length);
+    const gpuSpeed = 10e9; // 10 billion guesses/sec (modern GPU)
+    const seconds = combinations / gpuSpeed;
+
+    let timeStr = '';
+    if (seconds < 0.001) timeStr = 'Instantly';
+    else if (seconds < 1) timeStr = 'Under 1 second';
+    else if (seconds < 60) timeStr = Math.ceil(seconds) + ' seconds';
+    else if (seconds < 3600) timeStr = Math.ceil(seconds / 60) + ' minutes';
+    else if (seconds < 86400) timeStr = Math.ceil(seconds / 3600) + ' hours';
+    else if (seconds < 31536000) timeStr = Math.ceil(seconds / 86400) + ' days';
+    else if (seconds < 31536000 * 1000) timeStr = Math.ceil(seconds / 31536000) + ' years';
+    else if (seconds < 31536000 * 1e6) timeStr = Math.ceil(seconds / 31536000 / 1000) + 'K years';
+    else if (seconds < 31536000 * 1e9) timeStr = Math.ceil(seconds / 31536000 / 1e6) + 'M years';
+    else timeStr = '∞ (centuries+)';
+
+    // Determine level
+    let level, color, width;
+    if (score <= 2) { level = 'Weak'; color = '#ef4444'; width = '20%'; }
+    else if (score <= 3) { level = 'Fair'; color = '#f97316'; width = '40%'; }
+    else if (score <= 5) { level = 'Good'; color = '#facc15'; width = '60%'; }
+    else if (score <= 6) { level = 'Strong'; color = '#00ff88'; width = '80%'; }
+    else { level = 'Excellent'; color = '#00e5ff'; width = '100%'; }
+
+    // Common password override
+    if (!criteria.nocommon) {
+      level = 'Compromised';
+      color = '#ef4444';
+      width = '10%';
+      timeStr = 'Instantly (in breach databases)';
+    }
+
+    fill.style.width = width;
+    fill.style.background = color;
+    strengthText.textContent = level;
+    strengthText.style.color = color;
+    crackTime.textContent = 'Est. crack time (GPU): ' + timeStr;
+  });
+}
+
+// ===== Password Generator =====
+const genLength = document.getElementById('genLength');
+const genOutput = document.getElementById('genOutput');
+const genBtn = document.querySelector('.btn-generate');
+const copyBtn = document.querySelector('.btn-copy');
+const lengthValue = document.querySelector('.length-value');
+
+if (genLength && lengthValue) {
+  genLength.addEventListener('input', () => {
+    lengthValue.textContent = genLength.value;
+  });
+}
+
+if (genBtn) {
+  genBtn.addEventListener('click', () => {
+    const len = parseInt(genLength.value);
+    let chars = '';
+    if (document.getElementById('genUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (document.getElementById('genLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (document.getElementById('genNumbers').checked) chars += '0123456789';
+    if (document.getElementById('genSymbols').checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+    if (chars.length === 0) {
+      genOutput.value = 'Select at least one character type';
+      return;
+    }
+
+    const array = new Uint32Array(len);
+    crypto.getRandomValues(array);
+    let password = '';
+    for (let i = 0; i < len; i++) {
+      password += chars[array[i] % chars.length];
+    }
+    genOutput.value = password;
+
+    // Flash effect
+    genOutput.style.borderColor = 'var(--accent-green)';
+    setTimeout(() => { genOutput.style.borderColor = 'var(--border-subtle)'; }, 800);
+  });
+}
+
+if (copyBtn) {
+  copyBtn.addEventListener('click', () => {
+    if (genOutput && genOutput.value && genOutput.value !== 'Click Generate...' && genOutput.value !== 'Select at least one character type') {
+      navigator.clipboard.writeText(genOutput.value).then(() => {
+        const original = copyBtn.textContent;
+        copyBtn.textContent = '✓ Copied';
+        copyBtn.style.color = 'var(--accent-green)';
+        copyBtn.style.borderColor = 'var(--accent-green)';
+        setTimeout(() => {
+          copyBtn.textContent = original;
+          copyBtn.style.color = '';
+          copyBtn.style.borderColor = '';
+        }, 2000);
+      });
+    }
+  });
+}
+
+</script>
+</body>
+</html>
